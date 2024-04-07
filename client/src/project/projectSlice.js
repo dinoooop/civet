@@ -8,9 +8,12 @@ const initialState = {
     loading: false
 };
 
-export const index = createAsyncThunk('project/index', async () => {
+export const index = createAsyncThunk('project/index', async (data = {}) => {
     try {
-        const response = await axios.get(`${config.api}/projects`, config.header());
+        const response = await axios.get(`${config.api}/projects`, {
+            params: data,
+            headers: config.header(),
+          });
         return response.data;
     } catch (error) {
         throw error;
